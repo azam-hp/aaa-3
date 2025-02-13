@@ -2,15 +2,15 @@ const openModalBtn = document.querySelector('#openModal');
 const openCardModal = document.querySelector('#openCardModal');
 const closeModal = document.querySelectorAll('.close-button');
 const modal = document.getElementById('modal');
+
 const addTaskForm = document.querySelector('form[name="addTask"]');
 const addCardForm = document.querySelector('form[name="addCard"]');
+
 const taskInput = document.querySelector('.task-input');
 const taskType = document.querySelector('#task_type');
-const taskDifficulty = document.querySelector('#task_dificulty');
 const taskDate = document.querySelector('.task-date');
-const taskNotes = document.querySelector('.task-notes');
 const addTaskBtn = document.querySelector('.submit-task');
-const typenumb = document.querySelector('.')
+
 const mainContent = document.querySelector('.main-content');
 
 openModalBtn.onclick = () => {
@@ -18,7 +18,6 @@ openModalBtn.onclick = () => {
     addTaskForm.classList.remove('hidden');
     addCardForm.classList.add('hidden');
 };
-
 
 openCardModal.onclick = () => {
     modal.classList.remove('hidden');
@@ -33,26 +32,26 @@ closeModal.forEach(button => {
 });
 
 addTaskBtn.onclick = (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (taskInput.value.trim() === '' || taskDate.value === '') return;
 
     const newCategory = document.createElement('div');
     newCategory.classList.add('todo-category');
     newCategory.innerHTML = `
-        <h3 class="category-title">${taskType.value} <div class="task-count">${task}</div></h3>
+        <h3 class="category-title">${taskType.value} <span class="task-count">1</span></h3>
         <div class="task-list">
             <div class="task">
                 <div class="task_name">
                     <input type="checkbox">
                     <div class="smth">
-                        <p>${taskInput.value}</p>
-                        <div class="due-date">Due: ${taskDate.value}</div>
+                        <input type="text" class="task-text" value="${taskInput.value}" readonly>
+                        <input type="date" class="due-date" value="${taskDate.value}" readonly>
                     </div>
                 </div>
                 <div class="btns">
-                    <button class="save"><img src="./assets/icons8-backspace-50.png" alt=""></button>
-                    <button class="delete"><img src="./assets/icons8-delete-24.png" alt=""></button>
+                    <button class="edit">✏️</button>
+                    <button class="delete">🕳</button>
                 </div>
             </div>
         </div>
@@ -62,9 +61,10 @@ addTaskBtn.onclick = (e) => {
 
     taskInput.value = '';
     taskDate.value = '';
-    taskNotes.value = '';
 
     modal.classList.add('hidden');
+
+    addTaskEvents(newCategory);
 };
 
 function addTaskEvents(category) {
@@ -73,7 +73,6 @@ function addTaskEvents(category) {
     const taskText = category.querySelector('.task-text');
     const dueDate = category.querySelector('.due-date');
 
-    // Редактирование задачи
     editBtn.onclick = () => {
         taskText.readOnly = !taskText.readOnly;
         dueDate.readOnly = !dueDate.readOnly;
@@ -82,7 +81,6 @@ function addTaskEvents(category) {
         }
     };
 
-    // Удаление всего блока
     deleteBtn.onclick = () => {
         category.remove();
     };

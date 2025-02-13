@@ -99,14 +99,14 @@
     color: #666;
 }
 
-.save {
+.edit {
     cursor: pointer;
     width: 15px;
     height: 15px;
     border: none;
 }
 
-.save img {
+.edit img {
     width: 15px;
     height: 15px;
 }
